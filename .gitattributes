@@ -12,4 +12,5 @@
 Hybrid\ WAF.html linguist-language=HTML
 
 # Exclude all other HTML files from language stats
-*.html linguist-vendored=
+*.html linguist-vendored=true
+

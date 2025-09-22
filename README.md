@@ -174,54 +174,62 @@ CTRL + C
 
 1. **Homepage**
 
+```bash
     GET / HTTP/1.1
     Host: www.example.com
-
+```
 2. **Product listing**
 
+```bash
     GET /products?category=electronics&page=2 HTTP/1.1
     Host: www.ecommerce.com
     Referer: https://www.ecommerce.com/products
-
+```
 3. **Single product**
 
+```bash
     GET /product/12345 HTTP/1.1
     Host: www.ecommerce.com
     Referer: https://www.ecommerce.com/products?category=electronics&page=2
-
+```
 4. **Add to cart (POST with JSON body)**
 
-    POST /cart/add HTTP/1.1
-    Host: www.ecommerce.com
-    Content-Type: application/json
-    Content-Length: 45
+```bash
+POST /cart/add HTTP/1.1
+Host: www.ecommerce.com
+Content-Type: application/json
+Content-Length: 45
 
     {"productId": "12345", "quantity": 1}
-
+```
 ---
 
 ### ❌ Malicious Requests (Signature-Based Detection)
 
 1. **SQL Injection via search**
 
+```bash
     GET /search?q=' OR '1'='1'; DROP TABLE users;-- HTTP/1.1
     Host: www.example.com
-
+```
 2. **XSS in comment**
 
+```bash
     GET /comment?text=<script>alert('XSS')</script> HTTP/1.1
     Host: www.example.com
-
+```
 3. **XSS using eval**
 
+```bash
     GET /comment?text=<script>eval(String.fromCharCode(97,108,101,114,116,40,39,88,83,83,39,41))</script> HTTP/1.1
     Host: www.example.com
-
+```
 4. **SQL Injection with UNION**
 
+```bash
     GET /search?q=1' UNION SELECT username,password FROM users-- HTTP/1.1
     Host: www.example.com
-
+```
 ## 10. Conclusion
 
 Obsigate delivers **robust web security** with a **hybrid detection approach**:

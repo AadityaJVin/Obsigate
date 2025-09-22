@@ -2,6 +2,7 @@ from flask import Flask
 from src.hybrid_waf.routes.main import main_bp
 from src.hybrid_waf.routes.proxy import proxy_bp  # Import proxy Blueprint
 
+
 app = Flask(__name__)
 
 # Register blueprints

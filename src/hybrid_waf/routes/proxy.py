@@ -37,14 +37,14 @@ def check_request():
         waf_logger.info(f"{user_input} - valid")
         return jsonify({
             "status": "valid",
-            "message": "All Clear! Your request passed our security checks with flying colors.✨"
+            "message": "All Clear! Your request passed our security checks."
         })
 
     if signature_result == "malicious":
         waf_logger.info(f"{user_input} - malicious(signature)")
         return jsonify({
             "status": "malicious",
-            "message": "Critical Alert! Malicious pattern detected in your request.<br>Access Denied!🔒"
+            "message": "Critical Alert! Malicious pattern detected in your request. Access Denied."
         })
     
     # --- Step 2: ML-Based Anomaly Detection (Only for obfuscated requests) ---
@@ -62,9 +62,9 @@ def check_request():
         return jsonify({
             "status": "obfuscated",
             "ml_verdict": (
-                "🚨 Threat Confirmed! AI Defense System Blocked Suspicious Activity.🔒" 
+                "Threat Confirmed! AI Defense System Blocked Suspicious Activity." 
                 if final_status == "malicious" 
-                else "✅ Advanced AI Scan Complete: Request Verified Safe ✨"
+                else "Advanced AI Scan Complete: Request Verified Safe"
             ),
             "message": "Suspicious Pattern Detected - Engaging Advanced AI Analysis...",
             "features": features

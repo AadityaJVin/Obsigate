@@ -195,7 +195,7 @@ const styles = `
     from { opacity: 0; }
     to { opacity: 1; }
 }
-`
+`;
 
 // Add styles to document
 const styleSheet = document.createElement("style");

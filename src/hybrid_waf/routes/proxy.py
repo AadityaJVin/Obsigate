@@ -1,12 +1,14 @@
 from flask import Blueprint, request, jsonify
 from src.hybrid_waf.utils.signature_checker import check_signature
 import logging
+import os
 
 # Create a dedicated logger for WAF detections
 waf_logger = logging.getLogger('waf_detections')
 waf_logger.setLevel(logging.INFO)
 
 # Create file handler
+os.makedirs('logs', exist_ok=True)
 fh = logging.FileHandler('logs/detections.log')
 fh.setLevel(logging.INFO)
 

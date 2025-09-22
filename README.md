@@ -1,8 +1,5 @@
 # Obsigate – Advanced AI-Powered Web Application Firewall
 
-**Creator**: Aaditya Jain
-**Repository**: [Obsigate GitHub Repo](https://github.com/Aaditya-2975/Obsigate)
-
 ---
 
 ## 1. Introduction

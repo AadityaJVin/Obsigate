@@ -1,4 +1,4 @@
-import os
+import o
 
 # Define project structure
 folders = [

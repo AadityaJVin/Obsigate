@@ -1,5 +1,7 @@
 # Obsigate – Advanced AI-Powered Web Application Firewall
 
+<img width="2820" height="1349" alt="image" src="https://github.com/user-attachments/assets/86253bb3-f73f-4927-abe6-e6ddc0f14166" />
+
 ---
 
 ## 1. Introduction
@@ -12,6 +14,9 @@ Obsigate is a hybrid **Web Application Firewall (WAF)** that combines:
 This layered approach enhances security against both traditional exploits and sophisticated encoded payloads.
 
 ---
+
+<img width="2822" height="876" alt="image" src="https://github.com/user-attachments/assets/73e17c97-5a06-4301-a466-65461454b135" />
+
 
 ## 2. Hybrid Detection Architecture
 
@@ -169,6 +174,8 @@ CTRL + C
 
 ---
 ## Example Requests
+<img width="1771" height="1130" alt="image" src="https://github.com/user-attachments/assets/d02f4180-0b0d-47f4-b9f9-120eacec1912" />
+<img width="1839" height="1098" alt="image" src="https://github.com/user-attachments/assets/1f66227c-e6f9-483f-a341-0f3d0dc4ca46" />
 
 ### ✅ Valid Requests
 

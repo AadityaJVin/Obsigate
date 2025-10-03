@@ -1,119 +1,104 @@
-# Obsigate – Advanced AI-Powered Web Application Firewall
+# Obsigate – Advanced AI-Powered Web Application Firewall  
 
-<img width="2820" height="1349" alt="image" src="https://github.com/user-attachments/assets/86253bb3-f73f-4927-abe6-e6ddc0f14166" />
+[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)  
+[![Python](https://img.shields.io/badge/Python-3.9+-green.svg)](https://www.python.org/)  
+
+## 💡 Motivation
+Obsigate is designed to explore **hybrid web security**, combining signature-based detection and AI/ML anomaly detection.  
+The project demonstrates how to **protect modern web applications** against both known attacks and obfuscated or zero-day threats while learning about WAFs, feature extraction, and ML-based security.
 
 ---
 
 ## 1. Introduction
+Obsigate is a hybrid **Web Application Firewall (WAF)** that combines:  
 
-Obsigate is a hybrid **Web Application Firewall (WAF)** that combines:
-
-* **Signature-based detection** for known attacks.
-* **Machine Learning-based anomaly detection** for obfuscated or zero-day threats.
+* **Signature-based detection** for known attacks.  
+* **Machine Learning-based anomaly detection** for obfuscated or zero-day threats.  
 
 This layered approach enhances security against both traditional exploits and sophisticated encoded payloads.
 
 ---
 
-<img width="2822" height="876" alt="image" src="https://github.com/user-attachments/assets/73e17c97-5a06-4301-a466-65461454b135" />
-
-
 ## 2. Hybrid Detection Architecture
-
 Obsigate operates in **two stages**:
 
-1. **Stage 1 – Signature Detection**
+1. **Stage 1 – Signature Detection**  
+   - Matches incoming requests against predefined attack patterns.  
+   - Detects SQLi, XSS, path traversal, and other common exploits.  
 
-   * Matches incoming requests against predefined attack patterns.
-   * Detects SQLi, XSS, path traversal, and other common exploits.
-
-2. **Stage 2 – AI/ML Detection**
-
-   * Triggered when requests appear “obfuscated” or suspicious.
-   * Uses a pre-trained **LightGBM model** to classify requests as *malicious (1)* or *valid (0)*.
+2. **Stage 2 – AI/ML Detection**  
+   - Triggered when requests appear “obfuscated” or suspicious.  
+   - Uses a pre-trained **LightGBM model** to classify requests as *malicious (1)* or *valid (0)*.  
 
 ---
 
 ## 3. Machine Learning Pipeline
 
 ### 3.1 Feature Extraction
-
 Obsigate extracts **8 statistical features** from URI, GET, and POST data:
 
-* `URI_Length` – Length of URI
-* `GET_Length` – Length of GET parameters
-* `POST_Length` – Length of POST data
-* `URI_Entropy` – Shannon entropy of URI
-* `GET_Entropy` – Shannon entropy of GET data
-* `POST_Entropy` – Shannon entropy of POST data
-* `Numeric_Text_Ratio` – Digits-to-letters ratio
-* `Special_Char_Count` – Count of special characters (`'`, `"`, `{`, `}`, etc.)
+* `URI_Length` – Length of URI  
+* `GET_Length` – Length of GET parameters  
+* `POST_Length` – Length of POST data  
+* `URI_Entropy` – Shannon entropy of URI  
+* `GET_Entropy` – Shannon entropy of GET data  
+* `POST_Entropy` – Shannon entropy of POST data  
+* `Numeric_Text_Ratio` – Digits-to-letters ratio  
+* `Special_Char_Count` – Count of special characters (`'`, `"`, `{`, `}`, etc.)  
 
 ### 3.2 Model Inference
-
-* **Algorithm**: LightGBM
-* **Framework**: scikit-learn, joblib
-* **Model File**: `ml_model.pkl`
-* **Output**: Binary → `0 = valid`, `1 = malicious`
+* **Algorithm**: LightGBM  
+* **Frameworks**: scikit-learn, joblib  
+* **Model File**: `ml_model.pkl`  
+* **Output**: Binary → `0 = valid`, `1 = malicious`  
 
 ---
 
 ## 4. Model Training (Background)
+The repository contains **inference code only**, not training scripts or datasets.  
 
-The repo includes **inference code only**, not training scripts or datasets.
+**Training workflow (for reference):**
+1. Collect labeled malicious + benign web requests.  
+2. Extract features with `extract_features()`.  
+3. Train LightGBM classifier.  
+4. Validate with cross-validation.  
+5. Save model → `ml_model.pkl`.  
 
-**Training workflow (inferred):**
-
-1. Collect labeled malicious + benign web requests.
-2. Extract the 8 features with `extract_features()`.
-3. Train a LightGBM classifier.
-4. Validate with cross-validation.
-5. Save model → `ml_model.pkl`.
-
-**Dataset sources**: public attack datasets, web logs, synthetic attacks.
-
-**Notes on Training:**
-
-* Dataset should cover thousands of examples to ensure model generalization.
-* Includes various obfuscation encodings (URL, Base64, Hex).
-* Model can be retrained with new data for adaptive learning.
+**Notes:**  
+* Dataset should include thousands of examples for generalization.  
+* Include various obfuscation encodings (URL, Base64, Hex).  
+* Retrainable with new data for adaptive learning.  
 
 ---
 
 ## 5. Technical Implementation
-
-* **Language**: Python
-* **Frameworks**: Flask, scikit-learn, LightGBM
-* **Inference**: `model.predict()` per suspicious request
-* **Model Storage**: Pre-trained model (`ml_model.pkl`)
-* **Feature Vector**: 8-dimensional per request
-* **Decision Output**: Binary classification (0=valid, 1=malicious)
+* **Language**: Python  
+* **Frameworks**: Flask, scikit-learn, LightGBM  
+* **Inference**: `model.predict()` per suspicious request  
+* **Model Storage**: Pre-trained model (`ml_model.pkl`)  
+* **Feature Vector**: 8-dimensional per request  
+* **Decision Output**: Binary classification (0=valid, 1=malicious)  
 
 ---
 
 ## 6. Key Benefits
-
-* Detects **zero-day & obfuscated attacks**
-* **Low false positives** (ML runs only on suspicious requests)
-* **Retrainable** for evolving threats
-* **Fast inference** with lightweight features
-* Provides **adaptive learning** for modern attack patterns
+* Detects **zero-day & obfuscated attacks**  
+* **Low false positives** (ML runs only on suspicious requests)  
+* **Retrainable** for evolving threats  
+* **Fast inference** with lightweight features  
+* Provides **adaptive learning** for modern attack patterns  
 
 ---
 
 ## 7. Deployment Notes
-
-* Default Flask server is for **development only**.
-* For production, use **gunicorn** / **uWSGI**.
-* Logging and monitoring recommended to improve datasets.
-* Periodic retraining ensures protection against emerging threats.
+* Default Flask server is for **development only**.  
+* For production, use **gunicorn** / **uWSGI**.  
+* Logging and monitoring recommended to improve datasets.  
+* Periodic retraining ensures protection against emerging threats.  
 
 ---
 
 ## 8. Requirements
-
-Ensure the following dependencies are installed:
-
 ```txt
 flask
 joblib
@@ -121,7 +106,7 @@ numpy
 scipy
 scikit-learn
 lightgbm
-```
+
 
 Install automatically with:
 

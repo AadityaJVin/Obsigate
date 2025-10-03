@@ -99,7 +99,7 @@ The repository contains **inference code only**, not training scripts or dataset
 ---
 
 ## 8. Requirements
-```txt
+
 flask
 joblib
 numpy
